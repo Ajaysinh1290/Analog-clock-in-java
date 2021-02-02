@@ -42,7 +42,6 @@ public class AnalogClock extends JFrame implements ActionListener{
 			
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(0, 0, getWidth(),getHeight());
-			g.setColor(Color.white);
 			g.setFont(new Font("Segoe UI",Font.BOLD,20));
 			g.setColor(new Color(50,50,50));
 			g.fillOval(X+5, Y-5, this.RADIUS*2+20, this.RADIUS*2+20);
@@ -103,8 +102,7 @@ public class AnalogClock extends JFrame implements ActionListener{
 		}
 		int getHour() {
 			
-			int hour=LocalDateTime.now().getHour()%12;
-			return hour==0?12:hour;
+			return LocalDateTime.now().getHour()%12;
 		}
 		int getMinute() {
 			

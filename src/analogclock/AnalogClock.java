@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.time.LocalDateTime;
 
@@ -17,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
+@SuppressWarnings("serial")
 public class AnalogClock extends JFrame implements ActionListener{
 	
 		final int SIZE=500;
@@ -24,9 +23,9 @@ public class AnalogClock extends JFrame implements ActionListener{
 		final int MARGIN=10;
 		final int X=0;
 		final int Y=60;
-		final int HOUR_HAND_HEIGHT=15;
-		final int MINUTE_HAND_HEIGHT=5;
-		final int SECOND_HAND_HEIGHT=2;
+		final int HOUR_HAND_HEIGHT=6;
+		final int MINUTE_HAND_HEIGHT=3;
+		final int SECOND_HAND_HEIGHT=1;
 		final int startAngle=90;
 		AnalogClock() {
 			
@@ -56,20 +55,20 @@ public class AnalogClock extends JFrame implements ActionListener{
 //			Hour hand
 			{
 				int degree=this.startAngle-getHour()*30-getMinute()/12*6;
-				drawHand(this.RADIUS-90,10,degree,g);
+				drawHand(this.RADIUS-90,HOUR_HAND_HEIGHT,degree,g);
 				
 			}
 //			Minute hand
 			{
 				int degree=this.startAngle-(getMinute()/5)*30-getMinute()%5*6;
-				drawHand(this.RADIUS-70,4,degree,g);
+				drawHand(this.RADIUS-70,MINUTE_HAND_HEIGHT,degree,g);
 				
 			}
 			
 //			Second hand
 			{
 				int degree=this.startAngle-(getSecond()/5)*30-getSecond()%5*6;
-				drawHand(this.RADIUS-50,1,degree,g);
+				drawHand(this.RADIUS-50,SECOND_HAND_HEIGHT,degree,g);
 			}
 			
 			int centerCircleRad=20;
@@ -81,7 +80,7 @@ public class AnalogClock extends JFrame implements ActionListener{
 		void drawHand(int x,int y,int handWidth,int handHeight,int degree,Graphics g) {
 			
 			Graphics2D g2d = (Graphics2D)g;
-			Rectangle2D myRect = new Rectangle2D.Double(x-handHeight/2,y-handHeight/2,handWidth, handHeight/2);
+			Rectangle2D myRect = new Rectangle2D.Double(x-handHeight/2,y-handHeight/2,handWidth, handHeight);
 			AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(-degree),x,y);
 			Shape rotatedRect = at.createTransformedShape(myRect);
 			g2d.translate(0, 0);

@@ -27,9 +27,6 @@ public class AnalogClock extends JFrame implements ActionListener{
 		final int HOUR_HAND_HEIGHT=15;
 		final int MINUTE_HAND_HEIGHT=5;
 		final int SECOND_HAND_HEIGHT=2;
-		int sSecond=0;
-		int sMinute=0;
-		int sHour=0;
 		final int startAngle=90;
 		AnalogClock() {
 			
@@ -48,7 +45,7 @@ public class AnalogClock extends JFrame implements ActionListener{
 			g.setColor(Color.white);
 			g.setFont(new Font("Segoe UI",Font.BOLD,20));
 			g.setColor(new Color(50,50,50));
-			g.fillOval(X+5, Y+5-10, this.RADIUS*2+20, this.RADIUS*2+20);
+			g.fillOval(X+5, Y-5, this.RADIUS*2+20, this.RADIUS*2+20);
 			g.setColor(Color.white);
 			for(int i=1; i<13; i++) {
 				
@@ -57,7 +54,6 @@ public class AnalogClock extends JFrame implements ActionListener{
 				g.drawString(UIManager.get("PasswordField.echoChar")+"",x ,y );
 			}
 		
-			Graphics2D g2d = (Graphics2D)g;
 //			Hour hand
 			{
 				int degree=this.startAngle-getHour()*30-getMinute()/12*6;
@@ -108,7 +104,7 @@ public class AnalogClock extends JFrame implements ActionListener{
 		int getHour() {
 			
 			int hour=LocalDateTime.now().getHour()%12;
-			return hour>12?hour%12:hour;
+			return hour==0?12:hour;
 		}
 		int getMinute() {
 			
@@ -122,6 +118,7 @@ public class AnalogClock extends JFrame implements ActionListener{
 		public static void main(String[] args) {
 			
 			AnalogClock clock=new AnalogClock();
+			clock.setLocation(200,100);
 			clock.setResizable(false);
 			clock.setVisible(true);
 			
